@@ -5,13 +5,13 @@ const routes = Router();
 
 const employeeController = new EmployeeController()
 
-routes.get('/user', employeeController.all);
-routes.get('/user/:id', employeeController.index);
+routes.get('/employee', employeeController.all);
+routes.get('/employee/:id', employeeController.index);
 
-routes.post('/user/', employeeController.create);
+routes.post('/employee', employeeController.create);
 
-routes.put('/user/:id', employeeController.edit);
+routes.put('/employee/:id', employeeController.edit);
 
-routes.delete('/user/:id', employeeController.delete);
+routes.delete('/employee/:id', employeeController.delete);
 
 export default routes;
