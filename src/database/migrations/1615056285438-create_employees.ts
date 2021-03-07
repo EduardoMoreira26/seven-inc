@@ -25,6 +25,8 @@ export class createEmployees1615056285438 implements MigrationInterface {
         {
           name: "salary",
           type: 'decimal',
+          scale: 2,
+          precision: 2,
         },
         {
           name: "position",

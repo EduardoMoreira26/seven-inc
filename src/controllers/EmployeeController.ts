@@ -1,15 +1,24 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import Employee from '../models/Employee';
-
-
 export default class EmployeeController {
 
   async all(request: Request, response: Response) {
-    return response.json({ message: "Hello World" })
+    const employeesRepository = getRepository(Employee);
+    const employees = await employeesRepository.find();
+
+    return response.json(employees);
   }
 
-  async index() { }
+  async index(request: Request, response: Response) {
+    const { id } = request.params;
+
+    const employeesRepository = getRepository(Employee);
+
+    const employee = await employeesRepository.findOneOrFail(id);
+
+    return response.json(employee);
+  }
 
   async create(request: Request, response: Response) {
     const {
@@ -19,7 +28,7 @@ export default class EmployeeController {
       position
     } = request.body;
 
-    const employeesRepository = getRepository(Employee)
+    const employeesRepository = getRepository(Employee);
 
     const employee = employeesRepository.create({
       name,
