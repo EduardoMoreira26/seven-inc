@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getRepository, UpdateDateColumn } from 'typeorm';
+import { getRepository } from 'typeorm';
 import Employee from '../models/Employee';
 import employeeView from '../views/employees_view';
 import * as Yup from 'yup';
