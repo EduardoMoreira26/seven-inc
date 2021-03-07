@@ -9,7 +9,7 @@ export default class Employee {
   name: string;
 
   @Column()
-  bornDate: number;
+  bornDate: string;
 
   @Column()
   salary: number;

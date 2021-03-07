@@ -41,10 +41,14 @@ export default class EmployeeController {
 
     const schema = Yup.object().shape({
       name: Yup.string().required(),
-      bornDate: Yup.number().required(),
+      bornDate: Yup.string().required(),
       salary: Yup.number().required(),
       position: Yup.string().required()
     })
+
+    await schema.validate(data, {
+      abortEarly: false,
+    });
 
     const employee = employeesRepository.create(data);
 
