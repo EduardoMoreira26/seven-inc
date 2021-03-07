@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
+import { getRepository, UpdateDateColumn } from 'typeorm';
 import Employee from '../models/Employee';
 import employeeView from '../views/employees_view';
 import * as Yup from 'yup';
@@ -57,7 +57,37 @@ export default class EmployeeController {
     return response.status(201).json(employee)
   }
 
-  async edit() { }
+  async edit(request: Request, response: Response) {
+    const { id } = request.params;
+    try {
+      const employeeUpdate = await getRepository(Employee).update(
+        id,
+        request.body
+      );
 
-  async delete() { }
+      return response.status(200).json({
+        message: "Update operation success.",
+        data: employeeUpdate,
+      });
+    } catch (error) {
+      return response.status(400).json({
+        message: "Update operation failed, try again.",
+        info: error,
+      });
+    }
+  }
+
+  async delete(request: Request, response: Response) {
+
+    const { id } = request.params;
+    try {
+      await getRepository(Employee).delete(id);
+      return response.sendStatus(200).json({ message: "delete operation success." });
+    } catch (error) {
+      return response.status(400).json({
+        message: "Update operation failed, try again.",
+        info: error,
+      });
+    }
+  }
 }
