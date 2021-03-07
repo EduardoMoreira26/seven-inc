@@ -1,13 +1,15 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import Employee from '../models/Employee';
+import employeeView from '../views/employees_view';
+import * as Yup from 'yup';
 export default class EmployeeController {
 
   async all(request: Request, response: Response) {
     const employeesRepository = getRepository(Employee);
     const employees = await employeesRepository.find();
 
-    return response.json(employees);
+    return response.json(employeeView.renderMany(employees));
   }
 
   async index(request: Request, response: Response) {
@@ -17,7 +19,7 @@ export default class EmployeeController {
 
     const employee = await employeesRepository.findOneOrFail(id);
 
-    return response.json(employee);
+    return response.json(employeeView.render(employee));
   }
 
   async create(request: Request, response: Response) {
@@ -30,12 +32,21 @@ export default class EmployeeController {
 
     const employeesRepository = getRepository(Employee);
 
-    const employee = employeesRepository.create({
+    const data = {
       name,
       bornDate,
       salary,
       position
-    });
+    }
+
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      bornDate: Yup.number().required(),
+      salary: Yup.number().required(),
+      position: Yup.string().required()
+    })
+
+    const employee = employeesRepository.create(data);
 
     await employeesRepository.save(employee);
 
