@@ -28,8 +28,6 @@ fazendo com que as respostas sejam mais rápidas e dinâmicas.
 -  [Express](https://expressjs.com/)
 -  [TypeORM](http://knexjs.org/)
 -  [Node.js](https://nodejs.org/en/)
--  [ReactJS](https://reactjs.org/)
--  [React Native](http://facebook.github.io/react-native/)
 -  [Typescript](https://www.typescriptlang.org/)
 -  [SQLite](https://www.sqlite.org/)
 
